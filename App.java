@@ -9,7 +9,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import people.Person;
 import service.CSVManagement;
 
 public class App {
@@ -54,8 +57,8 @@ public class App {
         // Use FileWriter
         // 1. Use console to read in a string of text (sentence)
         // 2. Use FileWriter to write the content to the file
-        Console console = System.console();
-        String keyboardInput = console.readLine("Enter/Input a sentence: ");
+        // Console console = System.console();
+        // String keyboardInput = console.readLine("Enter/Input a sentence: ");
         
         // FileWriter fw = new FileWriter(file, true); // refer to documentation -> if true, when I write a new file and append
         //                                                     // if false -> file will be overwritten
@@ -137,12 +140,74 @@ public class App {
         // Example 5 (Decorator pattern)
         // Use FileOutputStream and GIZPOutputStream
 
+
+        List<Person> persons = new ArrayList<>();
+
         CSVManagement csv = new CSVManagement();
         csv.readCSV(dirPathFileName);
 
+        // menu
+        // 1. Enter new Person details
+        // 2. Save to file (Prompt for new csv file name)
+        // 3. Quit and terminate program
+
+        Console consoleSelection = System.console();
+        Integer selection = 0;
+        while (selection != 3) {
+            System.out.println("1. Enter new Person details");
+            System.out.println("2. Save to new csv file");
+            System.out.println("3. Quit program");
+            selection = Integer.parseInt(consoleSelection.readLine(">>> "));
+        
+
+            switch (selection) {
+                case 1:
+                    Console con1 = System.console();
+                    String personName = con1.readLine("Enter Person name: ");
+                    String personConstituency = con1.readLine("Enter constituency: ");
+                    String personBirthYear = con1.readLine("Enter Birth Year: ");
+
+                    Person p = new Person(personName, personConstituency, Integer.parseInt(personBirthYear));
+                    persons.add(p);
+                    break;
+                
+                case 2:
+                    Console con2 = System.console();
+                    String newFileName = con2.readLine("Enter a csv file to save (filename only): ");
+
+                    csv.writeCSV(dirPath + File.separator + newFileName, persons);
+                    break;
+                
+                default:
+                    break;
 
 
 
+            }
 
+
+        }
+
+    // public static void menu() {
+    //     System.out.println("=========================");
+    //     System.out.println("Enter '1' for new Person details");
+    //     System.out.println("Enter '2' to save new csv file");
+    //     System.out.println("Enter '3' to quit program");
+    //     System.out.println(">>>>>>>");
+    // }
+
+    // public static void userInput() {
+
+    //     Console consoleSelection = System.console();
+    //     Integer selection = 0;
+
+    //     selection = Integer.parseInt(consoleSelection.readLine(">>>> "));
+
+    //     while 
+    // }
+
+
+
+    
     }
 }
